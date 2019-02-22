@@ -19,7 +19,7 @@ public class SimpleEncryption {
     public static void main(String[] args) {
         //initialize variables
         String inPhrase, inRot, inOption, enPhrase;
-        int rot, x, choice;
+        int rot, choice;
         //initialize phrase input window
         inPhrase = JOptionPane.showInputDialog("This program will encrypt or decrypt a phrase using the\nsimple encryption method of rotating the letters");
         //newPhrase = "";
@@ -34,55 +34,24 @@ public class SimpleEncryption {
 
         enPhrase = "";
 
-        //check for uppercase letters in sentences
-        x = inPhrase.length();
-        int[] up = new int[x];
-        for (int i = 0; i < x; i++) {
-            up[i] = inPhrase.charAt(i);
-        }
-
-        //set input to lower case
-        inPhrase = inPhrase.toLowerCase();
-        System.out.println(choice);
-        if (choice == 1) {
+                if (choice == 1) {
             //compares character place to an array of the characters forming the input string
             for (char place : inPhrase.toCharArray()) {
-                enPhrase = enPhrase + Character.toString((char) (((place - 'a' + rot) % 26) + 'a'));
-            }
-
-            //puts uppercase letters back in their original place
-            for (int i = 0; i < x; i++) {
-                if (up[i] >= 65 && up[i] <= 90) {
-                    char c = enPhrase.charAt(i);
-                    up[i] = (up[i] + rot);
-                    while (up[i] >= 90) {
-                        up[i] = 65 + (((up[i]) - 90) - 1);
-                    }
-                    while (up[i] < 65) {
-                        up[i] = 90 - (1 + (65 + (up[i])));
-                    }
-                    enPhrase = enPhrase.replace(c, (char) (up[i]));
+                if ((int) place >= 65 && (int) place <= 90) {
+                    enPhrase = enPhrase + Character.toString((char) (((place - 'A' + rot) % 26) + 'A')).toUpperCase();
+                } else {
+                    enPhrase = enPhrase + Character.toString((char) (((place - 'a' + rot) % 26) + 'a'));
                 }
             }
-        } else {
-        }
-        if (choice == 2) {
+        } else if (choice == 2) {
             for (char place : inPhrase.toCharArray()) {
-                enPhrase = enPhrase + Character.toString((char) (place - rot));
-            }
 
-            //puts uppercase letters back in their original place
-            for (int i = 0; i < x; i++) {
-                if (up[i] >= 65 && up[i] <= 90) {
-                    char c = enPhrase.charAt(i);
-                    up[i] = (up[i] - rot);
-                    while (up[i] < 65) {
-                        up[i] = 90 - (1 + (65 + (up[i])));
-                    }
-                    while (up[i] > 90) {
-                        up[i] = 65 + (((up[i]) - 90) - 1);
-                    }                  
-                    enPhrase = enPhrase.replace(c, (char) (up[i]));
+                if ((int) place >= 65 && (int) place <= 90) {
+                    enPhrase = enPhrase + Character.toString((char) (((place - rot + 'A') % 26) + 'A')).toUpperCase();
+                } else if ((int)place - rot < 97) {
+                    enPhrase = enPhrase + Character.toString((char) ('z' - ('a' - (place - rot) - 1)));
+                } else {
+                    enPhrase = enPhrase + Character.toString((char) (place - rot));
                 }
             }
         }
