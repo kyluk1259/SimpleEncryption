@@ -48,7 +48,7 @@ public class SimpleEncryption {
             }       
           //if user chooses to decrypt the input
         } else if (choice == 2) {
-            //compares character place to an array of the characters forming the input string
+            //compares character value to an array of the characters forming the input string
             for (char value : inPhrase.toCharArray()) {
                 //if char is a capital letter, set decrypted letter to uppercase character within range
                 if ((int) value >= 65 && (int) value <= 90) {
